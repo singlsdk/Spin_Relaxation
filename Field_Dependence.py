@@ -4,9 +4,9 @@ import File_Operations as fo
 
 # parameters; creates outside omega value list with constant step
 omega_tau = 0.1
-outside_omega_value_min = 1
-outside_omega_value_max = 15
-n_points = 15
+outside_omega_value_min = 16
+outside_omega_value_max = 16
+n_points = 1
 n_modulations = 2000
 
 outside_omega_value_list = np.linspace(outside_omega_value_min, outside_omega_value_max, n_points)
