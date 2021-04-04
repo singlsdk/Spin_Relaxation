@@ -3,6 +3,10 @@ from numpy import linalg as la
 
 
 def random_unit_vector():
+
+    # Code from: https://stackoverflow.com/questions/5408276/
+    # sampling-uniformly-distributed-random-points-inside-a-spherical-volume
+
     phi = np.random.uniform(0, np.pi * 2)
     cos_theta = np.random.uniform(-1, 1)
 
