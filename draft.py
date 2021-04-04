@@ -17,8 +17,3 @@ plt.xlim(0, 14)
 plt.ylim(0, 500)
 
 plt.show()
-
-# test of git
-# test 2 of git
-# test 3 of git
-# test 4 of git
