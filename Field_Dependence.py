@@ -1,6 +1,6 @@
 import numpy as np
 from Modulation import spin_average_relaxation_time
-import File_Operations as fo
+import File_Operations as FO
 
 # parameters; creates outside omega value list with constant step
 omega_tau = 0.1
@@ -16,12 +16,12 @@ average_relaxation_time_list = [
     ]
 
 # saving in temporary file
-file = fo.FileOperations('Field_Plot.txt')
+file = FO.FileOperations('Field_Plot.txt')
 file.writing(inf='Field ' + str(omega_tau) + ' ' + str(n_modulations),
              x=outside_omega_value_list, y=average_relaxation_time_list)
 
 # saving in real file
 inf = 'Field ' + str(omega_tau) + ' ' + str(n_modulations)
-file_name = fo.file_name_creating(inf, outside_omega_value_list)
-file = fo.FileOperations(file_name)
+file_name = FO.file_name_creating(inf, outside_omega_value_list)
+file = FO.FileOperations(file_name)
 file.writing(inf, x=outside_omega_value_list, y=average_relaxation_time_list)
