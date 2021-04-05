@@ -7,7 +7,7 @@ def time_theor():
     _y_theor = []
     for _i in x:
         if _i <= 1:
-            _y_theor.append(1/i)
+            _y_theor.append(1/_i)
         else:
             _y_theor.append(1.0)
     return _y_theor
@@ -115,15 +115,16 @@ elif plot_type == 'S':
     y_0 = file.searching(omega_tau)
     y_theor = field_theor()
 
-    x = [i for i in x]
+    x = [np.log(i) for i in x]
+    y = [i - y_0 for i in y]
 
     for i in range(len(y)):
         if y[i] <= 0:
-            x.pop(i)
-            y.pop(i)
-            y_theor.pop(i)
+            x[i] = 1
+            y[i] = 1
+            y_theor[i] = 0
 
-    def fun_y(j): return np.log(j - y_0)
+    def fun_y(j): return np.log(j)
     y = list(map(fun_y, y))
     y_theor = list(map(fun_y, y_theor))
     # plt.title("Логирифм среднего времени релаксации от логарифма времени между столкновениями")

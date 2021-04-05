@@ -9,24 +9,28 @@ _, x, y = file.reading()
 y_0 = file2.searching(0.1)
 y = [i - y_0 for i in y]
 plt.plot(x, y, 'y')
+print(max(y))
 
 file = FileOperations('Field_0,2_2000_16_from1,0to16,0.txt')
 _, x, y = file.reading()
 y_0 = file2.searching(0.2)
 y = [i - y_0 for i in y]
 plt.plot(x, y, 'r')
+print(max(y))
 
 file = FileOperations('Field_0,3_2000_16_from1,0to16,0.txt')
 _, x, y = file.reading()
 y_0 = file2.searching(0.3)
 y = [i - y_0 for i in y]
 plt.plot(x, y, 'b')
+print(max(y))
 
 file = FileOperations('Field_0,4_2000_16_from1,0to16,0.txt')
 _, x, y = file.reading()
 y_0 = file2.searching(0.4)
 y = [i - y_0 for i in y]
 plt.plot(x, y, 'g')
+print(max(y))
 
 plt.xlim(0, 17)
 plt.ylim(0, 100)
