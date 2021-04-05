@@ -14,12 +14,11 @@ average_relaxation_time_list = [
     ]
 
 # saving in temporary file
+inf = 'Time ' + str(n_modulations)
 file = fo.FileOperations('Time_Plot.txt')
-file.writing(inf='Time ' + str(n_modulations),
-             x=omega_tau_list, y=average_relaxation_time_list)
+file.writing(inf, x=omega_tau_list, y=average_relaxation_time_list)
 
 # saving in real file
-inf = 'Field ' + str(n_modulations)
 file_name = fo.file_name_creating(inf, omega_tau_list)
 file = fo.FileOperations(file_name)
 file.writing(inf, x=omega_tau_list, y=average_relaxation_time_list)
