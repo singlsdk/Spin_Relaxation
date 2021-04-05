@@ -4,9 +4,9 @@ import File_Operations as fo
 
 # parameters; creates outside omega value list with constant step
 omega_tau = 0.5
-outside_omega_value_min = 1
-outside_omega_value_max = 10
-n_points = 10
+outside_omega_value_min = 11
+outside_omega_value_max = 13
+n_points = 3
 n_modulations = 2000
 
 outside_omega_value_list = np.linspace(outside_omega_value_min, outside_omega_value_max, n_points)
@@ -16,7 +16,7 @@ average_relaxation_time_list = [
     ]
 
 # saving in temporary file
-inf = 'Field ' + str(omega_tau) + ' ' + str(n_modulations)
+inf = 'Field ' + str(omega_tau) + ' ' + str(n_modulations) + ' ' + str(n_points)
 file = fo.FileOperations('Field_Plot.txt')
 file.writing(inf, x=outside_omega_value_list, y=average_relaxation_time_list)
 
