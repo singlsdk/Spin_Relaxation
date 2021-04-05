@@ -5,8 +5,8 @@ from File_Operations import FileOperations
 
 def time_theor():
     _y_theor = []
-    for i in x:
-        if i < 1:
+    for _i in x:
+        if _i <= 1:
             _y_theor.append(1/i)
         else:
             _y_theor.append(1.0)
