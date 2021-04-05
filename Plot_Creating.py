@@ -42,7 +42,7 @@ elif input_type == '1':
 
 else:
     # most useful file for few next plots; write anything instead 0 and 1 to call it
-    file_name = 'Field_0,2_2000_from1,0to16,0.txt'
+    file_name = 'Field_0,2_2000_16_from1,0to16,0.txt'
 
 print("Print 1 for theoretical plot:", end=' ')
 theor_existence = input()
@@ -69,7 +69,7 @@ if plot_type == 'T':
 
 elif plot_type == 'F':
     omega_tau = float(inf[1])
-    file = FileOperations('Time_from0,04to1,2_5000.txt')
+    file = FileOperations('Time_5000_117_from0,04to1,2.txt')
     y_0 = file.searching(omega_tau)
     y_theor = field_theor()
     plt.title("Среднее время релаксации от внешнего поля при Omega*Tau = " + str(omega_tau))
@@ -78,7 +78,7 @@ elif plot_type == 'F':
 
 elif plot_type == 'FF':
     omega_tau = float(inf[1])
-    file = FileOperations('Time_from0,04to1,2_5000.txt')
+    file = FileOperations('Time_5000_117_from0,04to1,2.txt')
     y_0 = file.searching(omega_tau)
     y_theor = field_theor()
 
@@ -111,7 +111,7 @@ elif plot_type == 'LL':
 elif plot_type == 'S':
     # this code is unique for most runs, so it'd be ugly
     omega_tau = float(inf[1])
-    file = FileOperations('Time_from0,04to1,2_5000.txt')
+    file = FileOperations('Time_5000_117_from0,04to1,2.txt')
     y_0 = file.searching(omega_tau)
     y_theor = field_theor()
 

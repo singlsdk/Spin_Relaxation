@@ -17,7 +17,7 @@ x2 y2                                   3
 def file_name_creating(inf, x_axis):
 
     # Example:
-    # inf = 'Field 0.3 2000' ; x_axis = [1.0, 2.0, ..., 16.0]  --> 'Field_0,3_2000_from1,0to16,0.txt'
+    # inf = 'Field 0.3 2000' ; x_axis = [1.0, 2.0, ..., 16.0]  --> 'Field_0,3_2000_16_from1,0to16,0.txt'
     file_name = inf.replace(' ', '_') + '_from' + str(min(x_axis)) + 'to' + str(max(x_axis))
     file_name = file_name.replace('.', ',') + '.txt'
 

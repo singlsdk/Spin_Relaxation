@@ -1,11 +1,11 @@
 import numpy as np
 from Modulation import spin_average_relaxation_time
-import File_Operations as fo
+import File_Operations as FO
 
 # parameters; creates omega*tau list with constant step
-omega_tau_min = 0.1
-omega_tau_max = 1.2
-n_points = 12
+omega_tau_min = 0.4
+omega_tau_max = 0.9
+n_points = 6
 n_modulations = 50
 
 omega_tau_list = np.linspace(omega_tau_min, omega_tau_max, n_points)
@@ -14,14 +14,13 @@ average_relaxation_time_list = [
     ]
 
 # saving in temporary file
-file = fo.FileOperations('Time_Plot.txt')
-file.writing(inf='Time ' + str(n_modulations),
-             x=omega_tau_list, y=average_relaxation_time_list)
+inf = 'Time ' + str(n_modulations) + ' ' + str(n_points)
+file = FO.FileOperations('Time_Plot.txt')
+file.writing(inf, x=omega_tau_list, y=average_relaxation_time_list)
 
 # saving in real file
-inf = 'Field ' + str(n_modulations)
-file_name = fo.file_name_creating(inf, omega_tau_list)
-file = fo.FileOperations(file_name)
+file_name = FO.file_name_creating(inf, omega_tau_list)
+file = FO.FileOperations(file_name)
 file.writing(inf, x=omega_tau_list, y=average_relaxation_time_list)
 
 
