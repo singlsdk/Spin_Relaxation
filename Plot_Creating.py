@@ -57,24 +57,27 @@ inf, x, y = file.reading()
 
 # creating plot
 plt.figure(figsize=(19, 9.5))
+default_label_size = 20
+default_title_size = 26
 
 y_0 = 0
 y_theor = []
 
 if plot_type == 'T':
     y_theor = time_theor()
-    plt.title("Среднее время релаксации от времени между столкновениями")
-    plt.xlabel("Время между столкновениями ( 1/Omega )")
-    plt.ylabel("Время релаксации ( 1/Omega )")
+    plt.title('Spin relaxation time dependence on time between collisions', fontsize=default_title_size)
+    plt.xlabel('Time between collisions ( 1/Ω )', fontsize=default_label_size)
+    plt.ylabel('Spin relaxation time ( 1/Ω )', fontsize=default_label_size)
 
 elif plot_type == 'F':
     omega_tau = float(inf[1])
     file = FileOperations('Time_5000_117_from0,04to1,2.txt')
     y_0 = file.searching(omega_tau)
     y_theor = field_theor()
-    plt.title("Среднее время релаксации от внешнего поля при Omega*Tau = " + str(omega_tau))
-    plt.xlabel("Отношение внешнего поля к случайному")
-    plt.ylabel("Время релаксации ( 1/Omega )")
+    plt.title('Spin relaxation time dependence on the external magnetic field , Ωτ = ' + str(omega_tau),
+              fontsize=default_title_size)
+    plt.xlabel('Time between collisions ( 1/Ω )', fontsize=default_label_size)
+    plt.ylabel('Spin relaxation time ( 1/Ω )', fontsize=default_label_size)
 
 elif plot_type == 'FF':
     omega_tau = float(inf[1])
@@ -115,8 +118,8 @@ elif plot_type == 'S':
     y_0 = file.searching(omega_tau)
     y_theor = field_theor()
 
-    x = [np.log(i) for i in x]
-    y = [i - y_0 for i in y]
+    x = [i**2 for i in x]
+    y = [i / y_0 for i in y]
 
     for i in range(len(y)):
         if y[i] <= 0:
@@ -146,10 +149,11 @@ if theor_existence == '_theor_':
 else:
     y_theor = []
 
+plt.tick_params(axis='both', which='major', labelsize=18)
 plt.xlim(min(0, 1.05 * min(x)), 1.05 * max(x))
 plt.ylim(min(0, 1.05 * min(y)), 1.05 * max(y + y_theor))
 
-plt.plot(x, y, 'ro')
+plt.plot(x, y, 'ro', markersize=7)
 
 # for example: Field_from0,04to1,2_5000.txt --> FieldFactor_from0,04to1,2_5000.png
 image_name = str(plot_type) + theor_existence + '_'.join((''.join(file_name.split('.')[:1]) + '.png').split('_')[1:])

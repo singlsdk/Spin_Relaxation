@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from File_Operations import FileOperations
 
-
+'''
 file2 = FileOperations('Time_5000_117_from0,04to1,2.txt')
 
 file = FileOperations('Field_0,1_2000_16_from1,0to16,0.txt')
@@ -46,11 +46,11 @@ plt.ylim(0, 100)
 
 file = FileOperations('Field_0,3_2000_16_from1,0to16,0.txt')
 _, x1, y1 = file.reading()
-file = FileOperations('Field_0,3_2000_17_from-16,0to0,0.txt')
+file = FileOperations('Field_spec_0,3_2000_10_from1,0to10,0.txt')
 _, x2, y2 = file.reading()
 plt.plot(x1, y1, 'ro')
-x2 = [abs(i) for i in x2]
+x2 = [i for i in x2]
 plt.plot(x2, y2, 'bo')
 
-'''
+
 plt.show()

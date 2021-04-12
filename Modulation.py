@@ -60,7 +60,8 @@ def spin_relaxation_modulation(omega_tau, omega_outside=(0, 0, 0)):
     spin_position_list = [spin_position]
 
     # initial spin position is perpendicular to random omega at first moment
-    omega_random_initial = [0, 0, 1]
+    # TODO: omega_random_initial = [0, 0, 1]
+    omega_random_initial = omega_full(omega_outside)
     omega = [x + y for x, y in zip(omega_random_initial, omega_outside)]  # vector sum
 
     frame_number = 0
