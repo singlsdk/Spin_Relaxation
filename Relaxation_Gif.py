@@ -36,7 +36,7 @@ x_data, y_data, z_data = [], [], []
 
 
 omega_tau = 0.4
-outside_omega_value = 20
+outside_omega_value = 10
 
 outside_omega = [0, - outside_omega_value, 0]  # spin_position_initial = [0, spin_length, 0]
 spin_position_list = spin_precession_modulation(omega_tau, outside_omega, frames_number=10000)
@@ -71,3 +71,13 @@ anim = animation.FuncAnimation(fig, animate, init_func=init,
 
 # anim.save('Spin_Relaxation_Bloch_Sphere_Animation.gif')
 plt.show()
+
+'''
+file = FileOperations('Bloch_0,4_10.txt')
+inf, spin_position_list = file.reading_bloch()
+inf = inf.split()
+
+print(inf)
+outside_omega = [float(inf[i]) for i in range(1, 4)]
+outside_omega_value = la.norm(outside_omega)
+'''

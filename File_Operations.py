@@ -86,6 +86,34 @@ class FileOperations:
             for i in range(length):
                 file.write(str(x[i]) + ' ' + str(y[i]) + '\n')
 
+    def reading_bloch(self):
+        lst = []
+        with open(self.file_path, 'r') as file:
+            k = 0
+            inf = file.readline()
+
+            for line in file:
+                #if k == 0:
+                #    inf = line.split()
+                #    k = 1
+                #else:
+                lst.append(line.split())
+        print(inf)
+        print(lst)
+
+        return inf, lst
+
+    def writing_bloch(self, inf, lst):
+
+        # 'w' to delete old file
+        with open(self.file_path, 'w') as file:
+            file.write(inf + '\n')
+
+        # 'a' to make new line in existing file
+        with open(self.file_path, 'a') as file:
+            for i in lst:
+                file.write(' '.join([str(j) for j in i]) + '\n')
+
 
 '''
 # location of all text files

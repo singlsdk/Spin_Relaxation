@@ -61,8 +61,9 @@ def spin_relaxation_modulation(omega_tau, omega_outside=(0, 0, 0)):
 
     # initial spin position is perpendicular to random omega at first moment
     # TODO: omega_random_initial = [0, 0, 1]
-    omega_random_initial = omega_full(omega_outside)
+    omega_random_initial = random_unit_vector()
     omega = [x + y for x, y in zip(omega_random_initial, omega_outside)]  # vector sum
+    omega_list = [omega]
 
     frame_number = 0
 
@@ -72,12 +73,14 @@ def spin_relaxation_modulation(omega_tau, omega_outside=(0, 0, 0)):
         if frame_number % (time_delta_accuracy + 1) == time_delta_accuracy:
             omega = omega_full(omega_outside)
 
+        omega_list.append(omega)
+
         frame_number += 1
 
         spin_position = spin_position_mixed_modulation(spin_position, omega, time_delta)
         spin_position_list.append(spin_position)
 
-        if abs((la.norm(spin_position) - spin_length)) > 0.0001 * spin_length:
+        if abs((la.norm(spin_position) - spin_length)) > 0.00001 * spin_length:
             print('Position deviation is too big!')
             return None
 

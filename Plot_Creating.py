@@ -107,9 +107,9 @@ elif plot_type == 'LL':
 
     x = list(map(np.log, x))
 
-    # plt.title("Логирифм среднего времени релаксации от логарифма времени между столкновениями")
-    # plt.xlabel("Логарифм времени между столкновениями")
-    # plt.ylabel("Логирифм среднего времени релаксации")
+    plt.title('Spin relaxation time dependence on time between collisions', fontsize=default_title_size)
+    plt.xlabel('Logarithm of time between collisions', fontsize=default_label_size)
+    plt.ylabel('Logarithm of spin relaxation time', fontsize=default_label_size)
 
 elif plot_type == 'S':
     # this code is unique for most runs, so it'd be ugly
@@ -130,9 +130,9 @@ elif plot_type == 'S':
     def fun_y(j): return np.log(j)
     y = list(map(fun_y, y))
     y_theor = list(map(fun_y, y_theor))
-    # plt.title("Логирифм среднего времени релаксации от логарифма времени между столкновениями")
-    # plt.xlabel("Логарифм времени между столкновениями")
-    # plt.ylabel("Логирифм среднего времени релаксации")
+    plt.title("Логирифм среднего времени релаксации от логарифма времени между столкновениями")
+    plt.xlabel("Логарифм времени между столкновениями")
+    plt.ylabel("Логирифм среднего времени релаксации")
 
 else:
     plt.title("Wrong Input")

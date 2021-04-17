@@ -3,10 +3,10 @@ from Modulation import spin_average_relaxation_time
 import File_Operations as fo
 
 # parameters; creates outside omega value list with constant step
-omega_tau = 0.5
-outside_omega_value_min = 11
-outside_omega_value_max = 13
-n_points = 3
+omega_tau = 0.3
+outside_omega_value_min = 1
+outside_omega_value_max = 12
+n_points = 12
 n_modulations = 2000
 
 outside_omega_value_list = np.linspace(outside_omega_value_min, outside_omega_value_max, n_points)
