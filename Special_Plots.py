@@ -207,9 +207,6 @@ def external_field_log_plot():
     plt.savefig(r'image_files\external_field_log_plot.png')
     plt.show()
 
-
-external_field_log_plot()
-
 '''
 file = FileOperations('Field_0,3_2000_16_from1,0to16,0.txt')
 _, x1, y1 = file.reading()
@@ -238,3 +235,15 @@ plt.plot(x3, y3, 'go')
 
 plt.show()
 '''
+
+
+file = FileOperations('Field_0,3_2000_16_from1,0to16,0.txt')
+_, x1, y1 = file.reading()
+file = FileOperations('2_Field_0,3_2000_17_from0,0to16,0.txt')
+_, x2, y2 = file.reading()
+
+plt.plot(x1, y1, 'ro')
+plt.plot(x2, y2, 'bo')
+
+plt.show()
+

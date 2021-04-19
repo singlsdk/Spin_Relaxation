@@ -50,8 +50,8 @@ for i in range(1, len(omega_list)-1):
 
 plt.figure(figsize=(19, 9.5))
 plt.plot(a_list, x_list, 'r')
-plt.plot(a_list, y_list, 'g')
-plt.plot(a_list, z_list, 'b')
+# plt.plot(a_list, y_list, 'g')
+# plt.plot(a_list, z_list, 'b')
 
 # plt.xlim(0, 17)
 # plt.ylim(0, 80)
