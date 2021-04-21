@@ -29,7 +29,7 @@ omega = random_unit_vector()
 omega_list = []
 number = 100000
 for i in range(number):
-    if k == 100:
+    if k == 1000:
         k = 0
         omega = random_unit_vector()
     k += 1
@@ -39,8 +39,7 @@ x_list = []
 y_list = []
 z_list = []
 a_list = []
-for i in range(1, len(omega_list)-1):
-    print(i)
+for i in range(1, 999):
     a = i
     x, y, z = correlator(omega_list, i)
     a_list.append(a)
