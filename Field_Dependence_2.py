@@ -14,8 +14,9 @@ outside_omega_value_list = np.linspace(outside_omega_value_min, outside_omega_va
 # for outside_omega_value in outside_omega_value_list]
 
 average_relaxation_time_list = []
-for omega_tau in outside_omega_value_list:
-    spr = SpinRelaxation(omega_tau, angle_of_relaxation=0.1, omega_initial='random', time_accuracy=100)
+for outside_omega_value in outside_omega_value_list:
+    spr = SpinRelaxation(omega_tau, omega_outside=[0, 0, outside_omega_value],
+                         angle_of_relaxation=0.1, omega_initial='random', time_accuracy=100)
     average_relaxation_time_list.append(spr.spin_average_relaxation_time_c(n_modulations))
 
 # saving in temporary file
