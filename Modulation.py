@@ -105,9 +105,9 @@ def spin_relaxation_modulation(omega_tau, omega_outside=(0, 0, 0)):
     return time_of_relaxation
 
 
-def spin_relaxation_modulation_2(omega_tau, omega_outside=(0, 0, 0)):
+def spin_relaxation_modulation_2(omega_tau, omega_outside=(0, 0, 0), angle_of_relaxation=1,
+                                 omega_initial='random'):
     # condition of relaxation
-    angle_of_relaxation = 1
     cosine_of_angle_of_relaxation = np.cos(angle_of_relaxation)
 
     # initialization of spin
@@ -117,8 +117,14 @@ def spin_relaxation_modulation_2(omega_tau, omega_outside=(0, 0, 0)):
     spin_position_list = [spin_position]
 
     # initial spin position is perpendicular to random omega at first moment
-    # TODO: omega_random_initial = [0, 1, 0]
-    omega_random_initial = random_unit_vector()
+    if omega_initial == 'random':
+        omega_random_initial = random_unit_vector()
+    if omega_initial == 'perpendicular':
+        omega_random_initial = [0, 1, 0]
+    else:
+        print('Wrong omega initial')
+        return None
+
     omega = [x + y for x, y in zip(omega_random_initial, omega_outside)]  # vector sum
     omega_list = [omega]
 
@@ -169,23 +175,26 @@ def spin_average_relaxation_time(omega_tau, n_modulations, omega_outside=(0, 0, 
     average_time = sum(time_list) / n_modulations
 
     print(omega_tau)
+    print(omega_outside)
     print(average_time)
 
     return average_time
 
 
-def spin_average_relaxation_time_2(omega_tau, n_modulations, omega_outside=(0, 0, 0)):
+def spin_average_relaxation_time_2(omega_tau, n_modulations, omega_outside=(0, 0, 0),
+                                   angle_of_relaxation=1, omega_initial='random'):
     time_list = []
     for i in range(n_modulations):
         if i % 1000 == 0:
             print(i)
 
-        time = spin_relaxation_modulation_2(omega_tau, omega_outside)
+        time = spin_relaxation_modulation_2(omega_tau, omega_outside, angle_of_relaxation, omega_initial)
         time_list.append(time)
 
     average_time = sum(time_list) / n_modulations
 
     print(omega_tau)
+    print(omega_outside)
     print(average_time)
 
     return average_time
@@ -226,71 +235,86 @@ def spin_precession_modulation(omega_tau, omega_outside=(0, 0, 0), frames_number
 
 
 # TODO: Make class (a bit later............)
-'''
+
 class SpinRelaxation:
 
-    # condition of relaxation
-    angle_of_relaxation = 1
-    cosine_of_angle_of_relaxation = np.cos(angle_of_relaxation)
+    def __init__(self, omega_tau, omega_outside=(0, 0, 0), angle_of_relaxation=1, omega_initial='random',
+                 time_accuracy=100):
 
-    # step of time in modulation
-    time_delta_accuracy = 100
-
-    # initialization of spin
-    spin_length = 1
-    spin_position_initial = [0, spin_length, 0]
-    spin_position = spin_position_initial
-    spin_position_list = [spin_position]
-
-    omega_outside = [0, 0, 0]
-
-    def __init__(self, omega_tau, omega_outside=(0, 0, 0), angle_of_relaxation=1, time_delta_accuracy=100):
-        self.omega_tau = omega_tau
-
-        self.time_delta_accuracy = time_delta_accuracy
-        
         self.omega_outside = omega_outside
-        self.time_delta = omega_tau / self.time_delta_accuracy
-        
-        self.angle_of_relaxation = angle_of_relaxation
+        self.omega_tau = omega_tau
+        self.spin_length = 1
+        # accuracy of calibration
+        self.time_accuracy = time_accuracy
 
-    def spin_relaxation_modulation(self):
         # condition of relaxation
-        angle_of_relaxation = 1
-        cosine_of_angle_of_relaxation = np.cos(angle_of_relaxation)
-
-        # step of time in modulation
-        time_delta_accuracy = 100
-        time_delta = omega_tau / time_delta_accuracy
+        self.cosine_of_angle_of_relaxation = np.cos(angle_of_relaxation)
 
         # initialization of spin
-        spin_length = 1
-        spin_position_initial = [0, spin_length, 0]
-        spin_position = spin_position_initial
-        spin_position_list = [spin_position]
+        self.spin_position_initial = [0, 0, self.spin_length]
 
         # initial spin position is perpendicular to random omega at first moment
-        omega_random_initial = [0, 0, 1]
-        omega = [x + y for x, y in zip(omega_random_initial, omega_outside)]  # vector sum
+        if omega_initial == 'random':
+            self.omega_random_initial = random_unit_vector()
+        if omega_initial == 'perpendicular':
+            self.omega_random_initial = [0, 1, 0]
+        else:
+            print('Wrong omega initial')
+            self.omega_random_initial = ['Wrong omega initial']
+
+    def spin_relaxation_modulation_c(self):
+        # initialization of spin
+        spin_position = self.spin_position_initial
+        spin_position_list = [spin_position]
+
+        omega = [x + y for x, y in zip(self.omega_random_initial, self.omega_outside)]  # vector sum
+        omega_list = [omega]
 
         frame_number = 0
 
-        while cosine_similarity(spin_position, spin_position_initial) > cosine_of_angle_of_relaxation:
+        while cosine_similarity(spin_position, self.spin_position_initial) >= self.cosine_of_angle_of_relaxation:
 
-            # every time_delta_accuracy round of cycle omega changes, so it changes every omega*tau
-            if frame_number % (time_delta_accuracy + 1) == time_delta_accuracy:
-                omega = omega_full(omega_outside)
+            # every round of cycle omega changes, so it changes every omega*tau
+            if frame_number != 0:
+                omega = omega_full(self.omega_outside)
+                omega_list.append(omega)
 
             frame_number += 1
 
-            spin_position = spin_position_mixed_modulation(spin_position, omega, time_delta)
+            spin_position = spin_position_rotation(spin_position, omega, self.omega_tau)
             spin_position_list.append(spin_position)
 
-            if abs((la.norm(spin_position) - spin_length)) > 0.0001 * spin_length:
+            if abs((la.norm(spin_position) - self.spin_length)) > 0.00001 * self.spin_length:
                 print('Position deviation is too big!')
                 return None
 
-        time_of_relaxation = time_delta * (frame_number - 1)
+        time_of_relaxation = self.omega_tau * (frame_number - 1)
+
+        spin_position = spin_position_list[-2]
+
+        # trying until first time out
+        for i in range(self.time_accuracy):
+            delta = self.omega_tau * i / self.time_accuracy
+            spin_position_new = spin_position_rotation(spin_position, omega, delta)
+            if cosine_similarity(spin_position_new, self.spin_position_initial) <= self.cosine_of_angle_of_relaxation:
+                time_of_relaxation += delta
+                break
 
         return time_of_relaxation
-'''
+
+    def spin_average_relaxation_time_c(self, n_modulations):
+        time_list = []
+        for i in range(n_modulations):
+            if i % 1000 == 0:
+                print(i)
+
+            time_of_relaxation = self.spin_relaxation_modulation_c()
+            time_list.append(time_of_relaxation)
+
+        average_time = sum(time_list) / n_modulations
+
+        print(self.omega_tau)
+        print(self.omega_outside)
+        print(average_time)
+
+        return average_time

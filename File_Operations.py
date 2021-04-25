@@ -42,8 +42,6 @@ class FileOperations:
     def reading(self):
         with open(self.file_path, 'r') as file:
             xy = [line.split() for line in file]
-            for line in file:
-                xy.append(line.split())
             # xy = [[inf], [x0, y0], [x1, y1], [x2, y2], ...]
             inf = xy[0]
             xy = xy[1:]  # xy = [[x0, y0], [x1, y1], [x2, y2], ...]
@@ -93,10 +91,10 @@ class FileOperations:
             inf = file.readline()
 
             for line in file:
-                #if k == 0:
+                # if k == 0:
                 #    inf = line.split()
                 #    k = 1
-                #else:
+                # else:
                 lst.append(line.split())
         print(inf)
         print(lst)

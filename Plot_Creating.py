@@ -99,7 +99,7 @@ elif plot_type == 'LL':
 
     for i in range(len(y)):
         if y[i] <= 0:
-            y = 1
+            y[i] = 1
 
     def fun_y(j): return np.log(j - y_0)
     y = list(map(fun_y, y))
