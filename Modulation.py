@@ -256,7 +256,7 @@ class SpinRelaxation:
         # initial spin position is perpendicular to random omega at first moment
         if omega_initial == 'random':
             self.omega_random_initial = random_unit_vector()
-        if omega_initial == 'perpendicular':
+        elif omega_initial == 'perpendicular':
             self.omega_random_initial = [0, 1, 0]
         else:
             print('Wrong omega initial')
